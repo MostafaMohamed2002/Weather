@@ -1,0 +1,86 @@
+package com.thechance.weather.data.local
+
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.pm.PackageManager
+import android.location.LocationManager
+import androidx.core.content.ContextCompat
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
+import com.google.android.gms.tasks.CancellationTokenSource
+import com.thechance.weather.data.repository.location.LocationDataSource
+import com.thechance.weather.domain.exception.GpsDisabledAppException
+import com.thechance.weather.domain.exception.LocationNotFoundException
+import com.thechance.weather.domain.exception.LocationPermissionAppException
+import com.thechance.weather.domain.exception.UnknownDataAppException
+import com.thechance.weather.domain.model.Location
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+/**
+ * A data source implementation that uses Google's FusedLocationProviderClient to get the device's location.
+ * This class follows a strict pattern where it throws specific exceptions on failure.
+ * It is intended to be called from a repository that handles these exceptions.
+ */
+class FusedLocationDataSource(
+    private val context: Context
+) : LocationDataSource {
+
+    private val fusedLocationClient =
+        LocationServices.getFusedLocationProviderClient(context.applicationContext)
+
+    @SuppressLint("MissingPermission")
+    override suspend fun fetchCurrentLocation(): Location {
+        if (!hasPermission()) {
+            throw LocationPermissionAppException()
+        }
+        if (!isGpsEnabled()) {
+            throw GpsDisabledAppException()
+        }
+
+        return suspendCancellableCoroutine { continuation ->
+            val cancellationTokenSource = CancellationTokenSource()
+
+            fusedLocationClient.getCurrentLocation(
+                Priority.PRIORITY_HIGH_ACCURACY,
+                cancellationTokenSource.token
+            ).addOnSuccessListener { location: android.location.Location? ->
+                if (location != null) {
+                    // On success, resume the coroutine with our domain model
+                    continuation.resume(Location(latitude = location.latitude, longitude = location.longitude))
+                } else {
+                    // If the API returns null, fail the coroutine with a specific exception
+                    continuation.resumeWithException(LocationNotFoundException("The location provider returned a null location."))
+                }
+            }.addOnFailureListener { exception ->
+                // If the underlying API fails, propagate the exception
+                continuation.resumeWithException(LocationNotFoundException("The underlying location provider failed."))
+            }
+
+            continuation.invokeOnCancellation {
+                cancellationTokenSource.cancel()
+            }
+        }
+    }
+
+    private fun hasPermission(): Boolean {
+        val hasFineLocationPermission = ContextCompat.checkSelfPermission(
+            context,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+
+        val hasCoarseLocationPermission = ContextCompat.checkSelfPermission(
+            context,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+
+        return hasFineLocationPermission || hasCoarseLocationPermission
+    }
+
+    private fun isGpsEnabled(): Boolean {
+        val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+    }
+}
