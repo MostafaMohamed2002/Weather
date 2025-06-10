@@ -1,10 +1,6 @@
 package com.thechance.weather.domain.model
 
 
-/**
- * A comprehensive enumeration of weather types based on WMO codes.
- * This class maps the integer code from the API to a meaningful type and description.
- */
 enum class WeatherType(val description: String, val wmoCode: Int) {
     ClearSky("Clear sky", 0),
     MainlyClear("Mainly clear", 1),

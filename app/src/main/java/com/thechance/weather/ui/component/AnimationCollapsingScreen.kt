@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import com.thechance.weather.ui.component.CurrentWeatherTemperature
@@ -35,7 +33,6 @@ fun AnimationCollapsingScreen(
             painter = image,
             contentDescription = "Weather Icon",
             contentScale = ContentScale.Fit,
-            colorFilter = ColorFilter.tint(Color.White),
             modifier = Modifier
                 .align(alignment = animationValues.imageAlignment)
                 .size(animationValues.imageSize)

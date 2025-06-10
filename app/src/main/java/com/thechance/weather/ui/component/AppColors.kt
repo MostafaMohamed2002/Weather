@@ -4,9 +4,6 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
-// --- 1. Define your Custom Colors data class and instances ---
-
-// A data class to hold all the colors for a specific theme (day or night)
 data class AppColors(
     val backgroundBrush: Brush,
     val lightContainerColor: Color,
@@ -18,7 +15,6 @@ data class AppColors(
     val locationTextColor: Color
 )
 
-// The definition for your dark (night) theme colors
 val darkColors = AppColors(
     backgroundBrush = Brush.verticalGradient(
         listOf(
@@ -35,7 +31,6 @@ val darkColors = AppColors(
     locationTextColor = Color(0xFFFFFFFF),
 )
 
-// The definition for your light (day) theme colors
 val lightColors = AppColors(
     backgroundBrush = Brush.verticalGradient(
         listOf(
@@ -53,36 +48,24 @@ val lightColors = AppColors(
 )
 
 
-// --- 2. Create the CompositionLocal ---
-// This is the mechanism to pass your color theme down the composition tree.
 val LocalAppColors = staticCompositionLocalOf {
-    // Provide the lightColors as a default.
-    // This default is rarely used because WeatherAppTheme provides a specific value.
     lightColors
 }
 
 
-// --- 3. The Main Theme Composable ---
 
 @Composable
 fun WeatherAppTheme(
-    useDarkTheme: Boolean, // No default value; the caller MUST decide.
+    useDarkTheme: Boolean,
     content: @Composable () -> Unit
 ) {
-    // Select the correct set of colors based on the is_day value
     val colors = if (useDarkTheme) darkColors else lightColors
-
-    // Provide the selected colors to all the composables below using CompositionLocalProvider.
-    // Any composable inside the 'content' block can now access these colors.
     CompositionLocalProvider(LocalAppColors provides colors) {
         content()
     }
 }
 
 
-// --- 4. Create a custom theme object for easy access ---
-// This is a convenient way to access your colors from any composable.
-// Usage example: `WeatherTheme.colors.backgroundBrush`
 object WeatherTheme {
     val colors: AppColors
         @Composable

@@ -17,11 +17,7 @@ import com.thechance.weather.domain.model.Location
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
-/**
- * A data source implementation that uses Google's FusedLocationProviderClient to get the device's location.
- * This class follows a strict pattern where it throws specific exceptions on failure.
- * It is intended to be called from a repository that handles these exceptions.
- */
+
 class FusedLocationDataSource(
     private val context: Context
 ) : LocationDataSource {
@@ -46,14 +42,11 @@ class FusedLocationDataSource(
                 cancellationTokenSource.token
             ).addOnSuccessListener { location: android.location.Location? ->
                 if (location != null) {
-                    // On success, resume the coroutine with our domain model
                     continuation.resume(Location(latitude = location.latitude, longitude = location.longitude))
                 } else {
-                    // If the API returns null, fail the coroutine with a specific exception
                     continuation.resumeWithException(LocationNotFoundException("The location provider returned a null location."))
                 }
             }.addOnFailureListener { exception ->
-                // If the underlying API fails, propagate the exception
                 continuation.resumeWithException(LocationNotFoundException("The underlying location provider failed."))
             }
 

@@ -35,7 +35,6 @@ class WeatherRemoteDataSourceImpl(
             return weatherDto.toDomain()
 
         }
-        // Catch specific exceptions and throw your new custom ones
         catch (e: IOException) {
             throw NetworkException()
         } catch (e: ClientRequestException) { // 4xx errors
@@ -45,7 +44,6 @@ class WeatherRemoteDataSourceImpl(
         } catch (e: JsonConvertException) {
             throw DataParsingException("Failed to parse server response.")
         } catch (e: Exception) {
-            // A final catch-all for any other unexpected errors
             throw UnknownException("An unexpected error occurred during weather fetch.")
         }
     }

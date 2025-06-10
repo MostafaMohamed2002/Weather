@@ -69,7 +69,7 @@ fun HourlyInfoItem(
             Image(
                 painter = image,
                 contentDescription = null,
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.FillBounds,
                 modifier = Modifier
                     .height(58.dp)
                     .width(64.dp)

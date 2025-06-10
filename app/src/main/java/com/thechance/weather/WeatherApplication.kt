@@ -13,11 +13,8 @@ class WeatherApplication : Application() {
         super.onCreate()
 
         startKoin {
-            // Log Koin activity
             androidLogger()
-            // Provide Android context
             androidContext(this@WeatherApplication)
-            // Declare modules to use
             modules(dataModule, domainModule, presentationModule)
         }
     }

@@ -27,13 +27,14 @@ import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
+val presentationModule = module {
+    viewModel { WeatherViewModel(get()) }
+}
 
 val domainModule = module {
     factory { GetWeatherForCurrentLocationUseCase(get(), get(), get()) }
 }
-val presentationModule = module {
-    viewModel { WeatherViewModel(get()) }
-}
+
 val dataModule = module {
 
     // --- A SINGLE, SHARED HTTP CLIENT CONFIGURATION ---

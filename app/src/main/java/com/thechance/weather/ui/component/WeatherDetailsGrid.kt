@@ -19,28 +19,17 @@ import com.thechance.weather.R
 import com.thechance.weather.domain.model.CurrentWeather
 import kotlin.math.roundToInt
 
-/**
- * A simple data class to hold the exact information needed to display
- * one item in the weather details grid.
- */
 data class WeatherDetailItemModel(
     @DrawableRes val iconRes: Int,
     val formattedValue: String,
     val label: String
 )
 
-/**
- * A composable that displays the 2x3 grid of weather details.
- * It takes the CurrentWeather domain model and maps its properties
- * to the specific UI models needed by the WeatherInfoItem.
- */
 @Composable
 fun WeatherDetailsGrid(
     currentWeather: CurrentWeather,
     modifier: Modifier = Modifier
 ) {
-    // This is the mapping step. We convert the raw domain data into a list
-    // of UI models that perfectly match what our WeatherInfoItem needs.
     val weatherDetails = listOf(
         WeatherDetailItemModel(
             iconRes = R.drawable.fast_wind,
@@ -74,17 +63,14 @@ fun WeatherDetailsGrid(
         )
     )
 
-    // Now we lay out the data in a grid
     Column(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
-        // First Row
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(6.dp)
         ) {
-            // Take the first 3 items from our list
             weatherDetails.take(3).forEach { detail ->
                 WeatherInfoItem(
                     painter = painterResource(id = detail.iconRes),
@@ -99,7 +85,6 @@ fun WeatherDetailsGrid(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(6.dp)
         ) {
-            // Take items 4, 5, and 6 from our list
             weatherDetails.drop(3).forEach { detail ->
                 WeatherInfoItem(
                     painter = painterResource(id = detail.iconRes),

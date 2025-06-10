@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -51,6 +50,8 @@ import com.thechance.weather.ui.component.LocationInfo
 import com.thechance.weather.ui.component.WeatherDetailsGrid
 import com.thechance.weather.ui.component.getWeatherIcon
 import org.koin.compose.koinInject
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun HomeScreen(
@@ -67,9 +68,7 @@ fun HomeScreen(
         Box(
             modifier = modifier
                 .fillMaxSize()
-                .background(WeatherTheme.colors.backgroundBrush)
-                .statusBarsPadding()
-                .navigationBarsPadding(),
+                .background(WeatherTheme.colors.backgroundBrush),
             contentAlignment = Alignment.Center
         ) {
             // Use a 'when' statement to route to the correct screen based on the state.
@@ -109,6 +108,7 @@ fun WeatherSuccessScreen(weatherDetails: WeatherDetails) {
                 location = weatherDetails.locationAddress.city,
                 modifier = Modifier
                     .fillMaxWidth()
+                    .statusBarsPadding()
                     .padding(top = 24.dp)
             )
         }
@@ -148,27 +148,36 @@ fun WeatherSuccessScreen(weatherDetails: WeatherDetails) {
             )
         }
         item {
+            val today = LocalDate.now()
+            val todaysHourlyForecast = remember(weatherDetails.weatherData.hourlyForecast) {
+                weatherDetails.weatherData.hourlyForecast.filter {
+                    it.time.toLocalDate() == today
+                }
+            }
             LazyRow(
                 modifier = Modifier.padding(top = 12.dp),
                 contentPadding = PaddingValues(start = 12.dp),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 items(
-                    count = weatherDetails.weatherData.hourlyForecast.size,
-                    key = {
-                        weatherDetails.weatherData.hourlyForecast[it].time
+                    count = todaysHourlyForecast.size,
+                    key = { index ->
+                        todaysHourlyForecast[index].time
                     },
-                ) {
+                ) { index ->
+                    // Get the item from the filtered list
+                    val hourlyItem = todaysHourlyForecast[index]
+
                     HourlyInfoItem(
                         image = painterResource(
                             getWeatherIcon(
-                                weatherDetails.weatherData.hourlyForecast[it].weatherType,
-                                isDay = weatherDetails.weatherData.currentWeather.isDay
+                                weatherType = hourlyItem.weatherType,
+                                isDay = hourlyItem.isDay
                             )
                         ),
-                        temperature = weatherDetails.weatherData.hourlyForecast[it].temperature.toString(),
-                        time = weatherDetails.weatherData.hourlyForecast[it].time.toLocalTime()
-                            .toString(),
+                        temperature = hourlyItem.temperature.toString(),
+                        time = hourlyItem.time.toLocalTime()
+                            .format(DateTimeFormatter.ofPattern("ha")),
                         modifier = Modifier.animateItem()
                     )
                 }

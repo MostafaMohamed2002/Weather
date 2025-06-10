@@ -26,7 +26,6 @@ class GeocodingRemoteDataSourceImpl(
     }
     override suspend fun getLocationAddress(location: Location): LocationAddress {
         try {
-            // 1. Make the network call and parse the DTO
             val geocodingDto = client.get(BASE_URL) {
                 parameter("lat", location.latitude)
                 parameter("lon", location.longitude)
@@ -35,11 +34,9 @@ class GeocodingRemoteDataSourceImpl(
                 parameter("accept-language", "en")
             }.body<GeocodingResponseDto>()
 
-            // 2. Map the DTO to the domain model and return it
             return geocodingDto.toDomain()
 
         }
-        // 3. Catch specific exceptions and throw your new custom ones
         catch (e: IOException) {
             throw NetworkException("Could not connect to geocoding service.")
         } catch (e: ClientRequestException) { // 4xx errors
@@ -49,7 +46,6 @@ class GeocodingRemoteDataSourceImpl(
         } catch (e: JsonConvertException) {
             throw DataParsingException("Failed to parse geocoding server response.")
         } catch (e: Exception) {
-            // A final catch-all for any other unexpected errors
             throw UnknownException("An unexpected geocoding error occurred.")
         }
     }

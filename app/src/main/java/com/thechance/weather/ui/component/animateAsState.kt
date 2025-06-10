@@ -33,7 +33,6 @@ fun animateAsState(isCollapsed: Boolean): AnimationValues {
         label = "imageVerticalBias"
     )   // 0f for Center, -1f for Top
 
-    // Animate the horizontal and vertical bias for the Weather alignment
     val weatherHorizontalBias by animateFloatAsState(
         targetValue = if (isCollapsed) 1f else 0f,
         label = "weatherHorizontalBias"
