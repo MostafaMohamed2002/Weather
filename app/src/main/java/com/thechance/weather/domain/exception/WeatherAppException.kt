@@ -17,11 +17,11 @@ class DataParsingException(
     message: String = "A data parsing error occurred."
 ) : WeatherAppException(message)
 
-class LocationPermissionAppException(
+class LocationPermissionException(
     message: String = "Location permission is required but was denied."
 ) : WeatherAppException(message)
 
-class GpsDisabledAppException(
+class GpsDisabledException(
     message: String = "GPS is not enabled."
 ) : WeatherAppException(message)
 
@@ -29,6 +29,6 @@ class LocationNotFoundException(
     message: String = "Could not retrieve a location."
 ) : WeatherAppException(message)
 
-class UnknownDataAppException(
+class UnknownException(
     message: String = "An unexpected data error occurred."
 ) : WeatherAppException(message)

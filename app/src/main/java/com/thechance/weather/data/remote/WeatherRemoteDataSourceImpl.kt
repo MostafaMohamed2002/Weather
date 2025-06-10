@@ -6,8 +6,7 @@ import com.thechance.weather.data.repository.weather.WeatherRemoteDataSource
 import com.thechance.weather.domain.exception.DataParsingException
 import com.thechance.weather.domain.exception.NetworkException
 import com.thechance.weather.domain.exception.ServerException
-import com.thechance.weather.domain.exception.UnknownDataAppException
-import com.thechance.weather.domain.exception.WeatherAppException
+import com.thechance.weather.domain.exception.UnknownException
 import com.thechance.weather.domain.model.Location
 import com.thechance.weather.domain.model.WeatherData
 import io.ktor.client.HttpClient
@@ -17,7 +16,6 @@ import io.ktor.client.plugins.ServerResponseException
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.serialization.JsonConvertException
-import kotlinx.serialization.SerializationException
 import java.io.IOException
 
 class WeatherRemoteDataSourceImpl(
@@ -48,7 +46,7 @@ class WeatherRemoteDataSourceImpl(
             throw DataParsingException("Failed to parse server response.")
         } catch (e: Exception) {
             // A final catch-all for any other unexpected errors
-            throw UnknownDataAppException("An unexpected error occurred during weather fetch.")
+            throw UnknownException("An unexpected error occurred during weather fetch.")
         }
     }
 }

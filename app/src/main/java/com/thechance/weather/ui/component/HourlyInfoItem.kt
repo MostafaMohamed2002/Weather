@@ -1,6 +1,7 @@
 package com.thechance.weather.ui.component
 
 import WeatherAppTheme
+import WeatherTheme
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -19,7 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -70,11 +70,13 @@ fun HourlyInfoItem(
                 painter = image,
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.height(58.dp)
+                modifier = Modifier
+                    .height(58.dp)
+                    .width(64.dp)
             )
             Spacer(Modifier.size(16.dp))
             Text(
-                text = temperature,
+                text = "${temperature}°C",
                 style = TextStyle(
                     fontSize = 16.sp,
                     fontFamily = FontFamily(Font(R.font.urbanist)),
@@ -108,7 +110,7 @@ fun HourlyInfoItemPreview() {
         useDarkTheme = false,
         content = {
             HourlyInfoItem(
-                image = painterResource(id = R.drawable.clearsky_day ),
+                image = painterResource(id = R.drawable.partlycloudy_night),
                 temperature = "25°C",
                 time = "12:00"
             )

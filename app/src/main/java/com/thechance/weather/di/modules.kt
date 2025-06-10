@@ -14,6 +14,7 @@ import com.thechance.weather.domain.repository.GeocodingRepository
 import com.thechance.weather.domain.repository.LocationRepository
 import com.thechance.weather.domain.repository.WeatherRepository
 import com.thechance.weather.domain.usecase.GetWeatherForCurrentLocationUseCase
+import com.thechance.weather.ui.screen.home.WeatherViewModel
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -22,6 +23,7 @@ import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.android.ext.koin.androidContext
+import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
@@ -29,7 +31,9 @@ import org.koin.dsl.module
 val domainModule = module {
     factory { GetWeatherForCurrentLocationUseCase(get(), get(), get()) }
 }
-val presentationModule = module { }
+val presentationModule = module {
+    viewModel { WeatherViewModel(get()) }
+}
 val dataModule = module {
 
     // --- A SINGLE, SHARED HTTP CLIENT CONFIGURATION ---
@@ -48,7 +52,7 @@ val dataModule = module {
         FakeLocationDataSource()
     }
     single<LocationRepository> {
-        LocationRepositoryImpl(get(named(LocationType.FAKE)))
+        LocationRepositoryImpl(get(named(LocationType.REAL)))
     }
 
     // --- GEOCODING ---

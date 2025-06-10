@@ -10,10 +10,9 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.thechance.weather.data.repository.location.LocationDataSource
-import com.thechance.weather.domain.exception.GpsDisabledAppException
+import com.thechance.weather.domain.exception.GpsDisabledException
 import com.thechance.weather.domain.exception.LocationNotFoundException
-import com.thechance.weather.domain.exception.LocationPermissionAppException
-import com.thechance.weather.domain.exception.UnknownDataAppException
+import com.thechance.weather.domain.exception.LocationPermissionException
 import com.thechance.weather.domain.model.Location
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
@@ -33,10 +32,10 @@ class FusedLocationDataSource(
     @SuppressLint("MissingPermission")
     override suspend fun fetchCurrentLocation(): Location {
         if (!hasPermission()) {
-            throw LocationPermissionAppException()
+            throw LocationPermissionException()
         }
         if (!isGpsEnabled()) {
-            throw GpsDisabledAppException()
+            throw GpsDisabledException()
         }
 
         return suspendCancellableCoroutine { continuation ->

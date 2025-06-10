@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -33,8 +32,8 @@ import com.thechance.weather.R
 fun WeatherInfoItem(
     modifier: Modifier = Modifier,
     painter: Painter,
-    title: String,
-    value: String,
+    formattedValue: String,
+    label: String,
 ) {
     Box(
         modifier
@@ -63,7 +62,7 @@ fun WeatherInfoItem(
             )
             Spacer(Modifier.size(8.dp))
             Text(
-                text = title,
+                text = formattedValue,
                 style = TextStyle(
                     fontSize = 20.sp,
                     fontFamily = FontFamily(Font(R.font.urbanist)),
@@ -74,7 +73,7 @@ fun WeatherInfoItem(
                 )
             )
             Text(
-                text = value,
+                text = label,
                 style = TextStyle(
                     fontSize = 14.sp,
                     fontFamily = FontFamily(Font(R.font.urbanist)),
@@ -96,8 +95,8 @@ fun WeatherInfoItemPreview() {
         content = {
             WeatherInfoItem(
                 painter = painterResource(id = R.drawable.fast_wind),
-                title = "13 KM/h",
-                value = "Wind"
+                formattedValue = "13 KM/h",
+                label = "Wind"
             )
         }
     )

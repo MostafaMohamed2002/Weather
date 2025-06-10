@@ -6,7 +6,7 @@ import com.thechance.weather.data.repository.geocoding.GeocodingRemoteDataSource
 import com.thechance.weather.domain.exception.DataParsingException
 import com.thechance.weather.domain.exception.NetworkException
 import com.thechance.weather.domain.exception.ServerException
-import com.thechance.weather.domain.exception.UnknownDataAppException
+import com.thechance.weather.domain.exception.UnknownException
 import com.thechance.weather.domain.model.Location
 import com.thechance.weather.domain.model.LocationAddress
 import io.ktor.client.HttpClient
@@ -50,7 +50,7 @@ class GeocodingRemoteDataSourceImpl(
             throw DataParsingException("Failed to parse geocoding server response.")
         } catch (e: Exception) {
             // A final catch-all for any other unexpected errors
-            throw UnknownDataAppException("An unexpected geocoding error occurred.")
+            throw UnknownException("An unexpected geocoding error occurred.")
         }
     }
 }

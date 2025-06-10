@@ -14,7 +14,8 @@ data class AppColors(
     val textColor: Color,
     val textColor87: Color,
     val containerColor: Color,
-    val textColor60: Color
+    val textColor60: Color,
+    val locationTextColor: Color
 )
 
 // The definition for your dark (night) theme colors
@@ -30,7 +31,8 @@ val darkColors = AppColors(
     containerColor = Color(0xB3060414),
     textColor60 = Color(0x99FFFFFF),
     lightContainerColor = Color(0x14FFFFFF),
-    borderColor = Color(0x14FFFFFF)
+    borderColor = Color(0x14FFFFFF),
+    locationTextColor = Color(0xFFFFFFFF),
 )
 
 // The definition for your light (day) theme colors
@@ -46,7 +48,8 @@ val lightColors = AppColors(
     containerColor = Color(0xB3FFFFFF),
     textColor60 = Color(0x99060414),
     lightContainerColor = Color(0x14060414),
-    borderColor = Color(0x14060414)
+    borderColor = Color(0x14060414),
+    locationTextColor = Color(0xFF323232),
 )
 
 
