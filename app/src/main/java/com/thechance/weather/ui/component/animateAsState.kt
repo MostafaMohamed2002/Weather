@@ -11,11 +11,11 @@ import com.thechance.weather.ui.model.AnimationValues
 @Composable
 fun animateAsState(isCollapsed: Boolean): AnimationValues {
     val boxHeight by animateDpAsState(
-        targetValue = if (isCollapsed) 143.dp else 355.dp,
+        targetValue = if (isCollapsed) 143.dp else 360.dp,
         label = "boxHeight"
     )
     val imageSize by animateDpAsState(
-        targetValue = if (isCollapsed) 124.dp else 220.dp,
+        targetValue = if (isCollapsed) 124.dp else 210.dp,
         label = "imageSize"
     )
     val weatherAlpha by animateFloatAsState(

@@ -1,3 +1,5 @@
+package com.thechance.weather.ui.component
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
@@ -5,6 +7,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 data class AppColors(
+    val primaryColor: Color = Color.Unspecified,
     val backgroundBrush: Brush,
     val lightContainerColor: Color,
     val borderColor: Color,
@@ -16,6 +19,7 @@ data class AppColors(
 )
 
 val darkColors = AppColors(
+    primaryColor = Color(0xFFC0B7FF),
     backgroundBrush = Brush.verticalGradient(
         listOf(
             Color(0xFF060414),
@@ -32,6 +36,8 @@ val darkColors = AppColors(
 )
 
 val lightColors = AppColors(
+    primaryColor = Color(0xFF00619D),
+
     backgroundBrush = Brush.verticalGradient(
         listOf(
             Color(0xFF87CEFA),

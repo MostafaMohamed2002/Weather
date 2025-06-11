@@ -1,8 +1,6 @@
 package com.thechance.weather.ui.screen.home
 
 import AnimationCollapsingScreen
-import WeatherAppTheme
-import WeatherTheme
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -23,7 +21,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -47,11 +45,13 @@ import com.thechance.weather.domain.model.WeatherDetails
 import com.thechance.weather.ui.component.DailyForecastItem
 import com.thechance.weather.ui.component.HourlyInfoItem
 import com.thechance.weather.ui.component.LocationInfo
+import com.thechance.weather.ui.component.WeatherAppTheme
 import com.thechance.weather.ui.component.WeatherDetailsGrid
+import com.thechance.weather.ui.component.WeatherTheme
 import com.thechance.weather.ui.component.getWeatherIcon
 import org.koin.compose.koinInject
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import kotlin.math.roundToInt
 
 @Composable
 fun HomeScreen(
@@ -71,7 +71,6 @@ fun HomeScreen(
                 .background(WeatherTheme.colors.backgroundBrush),
             contentAlignment = Alignment.Center
         ) {
-            // Use a 'when' statement to route to the correct screen based on the state.
             when (val state = uiState) {
                 is WeatherUiState.Loading -> LoadingScreen()
                 is WeatherUiState.Success -> WeatherSuccessScreen(
@@ -116,10 +115,13 @@ fun WeatherSuccessScreen(weatherDetails: WeatherDetails) {
             AnimationCollapsingScreen(
                 isCollapsed = isCollapsed,
                 modifier = Modifier.padding(top = 12.dp, start = 12.dp, end = 12.dp),
-                temperature = weatherDetails.weatherData.currentWeather.temperature.toString(),
+                temperature = weatherDetails.weatherData.currentWeather.temperature.roundToInt()
+                    .toString(),
                 temperatureDescription = weatherDetails.weatherData.currentWeather.weatherType.description,
-                minTemperature = weatherDetails.weatherData.currentWeather.dailyMinTemp.toString(),
-                maxTemperature = weatherDetails.weatherData.currentWeather.dailyMaxTemp.toString(),
+                minTemperature = weatherDetails.weatherData.currentWeather.dailyMinTemp.roundToInt()
+                    .toString(),
+                maxTemperature = weatherDetails.weatherData.currentWeather.dailyMaxTemp.roundToInt()
+                    .toString(),
                 image = painterResource(
                     getWeatherIcon(
                         weatherDetails.weatherData.currentWeather.weatherType,
@@ -175,9 +177,8 @@ fun WeatherSuccessScreen(weatherDetails: WeatherDetails) {
                                 isDay = hourlyItem.isDay
                             )
                         ),
-                        temperature = hourlyItem.temperature.toString(),
-                        time = hourlyItem.time.toLocalTime()
-                            .format(DateTimeFormatter.ofPattern("ha")),
+                        temperature = hourlyItem.temperature.roundToInt().toString(),
+                        time = hourlyItem.time.toLocalTime().toString(),
                         modifier = Modifier.animateItem()
                     )
                 }
@@ -223,7 +224,10 @@ fun WeatherSuccessScreen(weatherDetails: WeatherDetails) {
                         )
                         // Add a divider between items, but not after the last one
                         if (index < weatherDetails.weatherData.dailyForecast.size - 1) {
-                            Divider(color = WeatherTheme.colors.borderColor, thickness = 1.dp)
+                            HorizontalDivider(
+                                thickness = 1.dp,
+                                color = WeatherTheme.colors.borderColor
+                            )
                         }
                     }
                 }

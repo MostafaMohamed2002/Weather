@@ -1,7 +1,5 @@
 package com.thechance.weather.ui.component
 
-import WeatherAppTheme
-import WeatherTheme
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -14,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,17 +34,14 @@ import com.thechance.weather.R
 
 @Composable
 fun HourlyInfoItem(
-    modifier: Modifier = Modifier,
-    image: Painter,
-    temperature: String,
-    time: String
+    modifier: Modifier = Modifier, image: Painter, temperature: String, time: String
 ) {
     Box(
-         modifier = modifier
-             .height(132.dp)
-             .width(88.dp)
+        modifier = modifier
+            .height(132.dp)
+            .width(88.dp)
 
-    ){
+    ) {
         Box(
             modifier = Modifier
                 .clip(RoundedCornerShape(20.dp))
@@ -66,18 +62,37 @@ fun HourlyInfoItem(
                 .padding(start = 12.dp, end = 12.dp, bottom = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(
-                painter = image,
-                contentDescription = null,
-                contentScale = ContentScale.FillBounds,
+            Box(
                 modifier = Modifier
                     .height(58.dp)
                     .width(64.dp)
-            )
+
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(
+                            height = 10.dp, width = 10.dp
+                        )
+                        .dropShadow(
+                            shape = CircleShape,
+                            color = WeatherTheme.colors.primaryColor.copy(alpha = 0.3f),
+                            blur = 38.dp,
+                        )
+                        .align(Alignment.TopCenter)
+                )
+                Image(
+                    painter = image,
+                    contentDescription = null,
+                    contentScale = ContentScale.FillBounds,
+                    modifier = Modifier
+                        .height(58.dp)
+                        .width(64.dp)
+                )
+
+            }
             Spacer(Modifier.size(16.dp))
             Text(
-                text = "${temperature}°C",
-                style = TextStyle(
+                text = "${temperature}°C", style = TextStyle(
                     fontSize = 16.sp,
                     fontFamily = FontFamily(Font(R.font.urbanist)),
                     fontWeight = FontWeight(500),
@@ -88,8 +103,7 @@ fun HourlyInfoItem(
             )
             Spacer(Modifier.size(4.dp))
             Text(
-                text = time,
-                style = TextStyle(
+                text = time, style = TextStyle(
                     fontSize = 16.sp,
                     fontFamily = FontFamily(Font(R.font.urbanist)),
                     fontWeight = FontWeight(500),
@@ -107,14 +121,12 @@ fun HourlyInfoItem(
 @Composable
 fun HourlyInfoItemPreview() {
     WeatherAppTheme(
-        useDarkTheme = false,
-        content = {
+        useDarkTheme = false, content = {
             HourlyInfoItem(
                 image = painterResource(id = R.drawable.partlycloudy_night),
                 temperature = "25°C",
                 time = "12:00"
             )
-        }
-    )
+        })
 
 }

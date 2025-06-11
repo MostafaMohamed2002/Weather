@@ -1,6 +1,5 @@
 package com.thechance.weather.ui.component
 
-import WeatherTheme
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -30,6 +29,7 @@ import com.thechance.weather.domain.model.DailyForecast
 import com.thechance.weather.domain.model.WeatherType
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import kotlin.math.roundToInt
 
 @Composable
 fun DailyForecastItem(
@@ -87,7 +87,7 @@ fun DailyForecastItem(
             )
             Spacer(Modifier.size(4.dp))
             Text(
-                text = "${dailyForecast.maxTemperature}°C",
+                text = "${dailyForecast.maxTemperature.roundToInt()}°C",
                 style = TextStyle(
                     fontSize = 14.sp,
                     fontFamily = FontFamily(Font(R.font.urbanist)),
@@ -111,7 +111,7 @@ fun DailyForecastItem(
             )
             Spacer(Modifier.size(4.dp))
             Text(
-                text = "${dailyForecast.minTemperature}°C",
+                text = "${dailyForecast.minTemperature.roundToInt()}°C",
                 style = TextStyle(
                     fontSize = 14.sp,
                     fontFamily = FontFamily(Font(R.font.urbanist)),

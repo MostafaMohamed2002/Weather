@@ -1,6 +1,5 @@
 package com.thechance.weather.ui.component
 
-import WeatherTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
