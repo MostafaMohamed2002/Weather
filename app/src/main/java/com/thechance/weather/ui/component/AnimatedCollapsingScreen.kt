@@ -17,7 +17,7 @@ import com.thechance.weather.ui.component.dropShadow
 
 
 @Composable
-fun AnimationCollapsingScreen(
+fun AnimatedCollapsingScreen(
     isCollapsed: Boolean,
     modifier: Modifier = Modifier,
     temperature: String,

@@ -57,8 +57,8 @@ fun DailyForecastItem(
                 .padding(start = 16.dp)
         )
         Box(
-            modifier = Modifier.weight(1f), // Takes up 1/3 of the space
-            contentAlignment = Alignment.Center // Centers the image within the box
+            modifier = Modifier.weight(1f),
+            contentAlignment = Alignment.Center
         ) {
             Image(
                 painter = painterResource(

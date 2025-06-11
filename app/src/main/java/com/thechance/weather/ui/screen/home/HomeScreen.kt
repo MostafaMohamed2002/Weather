@@ -1,6 +1,6 @@
 package com.thechance.weather.ui.screen.home
 
-import AnimationCollapsingScreen
+import AnimatedCollapsingScreen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -112,7 +112,7 @@ fun WeatherSuccessScreen(weatherDetails: WeatherDetails) {
             )
         }
         item {
-            AnimationCollapsingScreen(
+            AnimatedCollapsingScreen(
                 isCollapsed = isCollapsed,
                 modifier = Modifier.padding(top = 12.dp, start = 12.dp, end = 12.dp),
                 temperature = weatherDetails.weatherData.currentWeather.temperature.roundToInt()
