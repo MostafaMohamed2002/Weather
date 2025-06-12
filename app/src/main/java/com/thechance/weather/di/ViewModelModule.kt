@@ -1,6 +1,6 @@
 package com.thechance.weather.di
 
-import com.thechance.weather.ui.screen.home.WeatherViewModel
+import com.thechance.weather.presentation.screen.home.WeatherViewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
