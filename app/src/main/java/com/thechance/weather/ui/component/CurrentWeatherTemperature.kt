@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.thechance.weather.R
+import com.thechance.weather.ui.theme.WeatherTheme
 
 @Composable
 fun CurrentWeatherTemperature(
@@ -37,7 +38,7 @@ fun CurrentWeatherTemperature(
         modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "$temperature°C",
+            text = "$temperature",
             style = TextStyle(
                 fontSize = 64.sp,
                 fontFamily = FontFamily(Font(R.font.urbanist)),

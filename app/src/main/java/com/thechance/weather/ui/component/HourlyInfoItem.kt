@@ -31,6 +31,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.thechance.weather.R
+import com.thechance.weather.ui.modifier.dropShadow
+import com.thechance.weather.ui.theme.WeatherTheme
 
 @Composable
 fun HourlyInfoItem(
@@ -76,7 +78,7 @@ fun HourlyInfoItem(
                         .dropShadow(
                             shape = CircleShape,
                             color = WeatherTheme.colors.primaryColor.copy(alpha = 0.3f),
-                            blur = 38.dp,
+                            blur = 14.dp,
                         )
                         .align(Alignment.TopCenter)
                 )
@@ -92,7 +94,7 @@ fun HourlyInfoItem(
             }
             Spacer(Modifier.size(16.dp))
             Text(
-                text = "${temperature}°C", style = TextStyle(
+                text = temperature, style = TextStyle(
                     fontSize = 16.sp,
                     fontFamily = FontFamily(Font(R.font.urbanist)),
                     fontWeight = FontWeight(500),
@@ -120,13 +122,10 @@ fun HourlyInfoItem(
 @Preview
 @Composable
 fun HourlyInfoItemPreview() {
-    WeatherAppTheme(
-        useDarkTheme = false, content = {
-            HourlyInfoItem(
-                image = painterResource(id = R.drawable.partlycloudy_night),
-                temperature = "25°C",
-                time = "12:00"
-            )
-        })
-
+    HourlyInfoItem(
+        image = painterResource(id = R.drawable.partlycloudy_night),
+        temperature = "24",
+        time = "10:00"
+    )
 }
+

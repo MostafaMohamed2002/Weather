@@ -21,21 +21,16 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.thechance.weather.R
-import com.thechance.weather.domain.model.DailyForecast
-import com.thechance.weather.domain.model.WeatherType
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import kotlin.math.roundToInt
+import com.thechance.weather.ui.model.DailyForecastItemState
+import com.thechance.weather.ui.theme.WeatherTheme
 
 @Composable
 fun DailyForecastItem(
     modifier: Modifier = Modifier,
-    dailyForecast: DailyForecast,
-    isDay: Boolean = true
+    state: DailyForecastItemState
 ) {
     Row(
         modifier = modifier
@@ -45,7 +40,7 @@ fun DailyForecastItem(
 
     ) {
         Text(
-            text = dailyForecast.day.format(DateTimeFormatter.ofPattern("EEEE")),
+            text = state.day,
             style = TextStyle(
                 fontSize = 16.sp,
                 fontFamily = FontFamily(Font(R.font.urbanist)),
@@ -63,8 +58,8 @@ fun DailyForecastItem(
             Image(
                 painter = painterResource(
                     getWeatherIcon(
-                        dailyForecast.weatherType,
-                        isDay = isDay
+                        state.weatherType,
+                        isDay = true
                     )
                 ),
                 contentDescription = null,
@@ -87,7 +82,7 @@ fun DailyForecastItem(
             )
             Spacer(Modifier.size(4.dp))
             Text(
-                text = "${dailyForecast.maxTemperature.roundToInt()}°C",
+                text = state.highTemp,
                 style = TextStyle(
                     fontSize = 14.sp,
                     fontFamily = FontFamily(Font(R.font.urbanist)),
@@ -111,7 +106,7 @@ fun DailyForecastItem(
             )
             Spacer(Modifier.size(4.dp))
             Text(
-                text = "${dailyForecast.minTemperature.roundToInt()}°C",
+                text = state.highTemp,
                 style = TextStyle(
                     fontSize = 14.sp,
                     fontFamily = FontFamily(Font(R.font.urbanist)),
@@ -124,16 +119,4 @@ fun DailyForecastItem(
             )
         }
     }
-}
-
-@Preview
-@Composable
-fun DailyForecastItemPreview() {
-    val dailyForecast = DailyForecast(
-        day = LocalDate.now(),
-        minTemperature = 10.0,
-        maxTemperature = 20.0,
-        weatherType = WeatherType.PartlyCloudy
-    )
-    DailyForecastItem(dailyForecast = dailyForecast)
 }

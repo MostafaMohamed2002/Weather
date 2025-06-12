@@ -11,13 +11,13 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.thechance.weather.ui.component.CurrentWeatherTemperature
-import com.thechance.weather.ui.component.WeatherTheme
 import com.thechance.weather.ui.component.animateAsState
-import com.thechance.weather.ui.component.dropShadow
+import com.thechance.weather.ui.modifier.dropShadow
+import com.thechance.weather.ui.theme.WeatherTheme
 
 
 @Composable
-fun AnimatedCollapsingScreen(
+fun AnimatedCollapsingHeader(
     isCollapsed: Boolean,
     modifier: Modifier = Modifier,
     temperature: String,
