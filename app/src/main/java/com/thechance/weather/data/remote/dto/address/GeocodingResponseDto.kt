@@ -8,32 +8,46 @@ import kotlinx.serialization.Serializable
 data class GeocodingResponseDto(
     @SerialName("address")
     val address: Address? = null,
+
     @SerialName("addresstype")
-    val addresstype: String,
+    val addressType: String,
+
     @SerialName("boundingbox")
-    val boundingbox: List<String>,
+    val boundingBox: List<String>,
+
     @SerialName("category")
     val category: String,
+
     @SerialName("display_name")
     val displayName: String,
+
     @SerialName("importance")
     val importance: Double,
+
     @SerialName("lat")
-    val lat: String? = null,
+    val latitude: String? = null,
+
     @SerialName("licence")
     val licence: String,
+
     @SerialName("lon")
-    val lon: String? = null,
+    val longitude: String? = null,
+
     @SerialName("name")
     val name: String,
+
     @SerialName("osm_id")
     val osmId: Int,
+
     @SerialName("osm_type")
     val osmType: String,
+
     @SerialName("place_id")
     val placeId: Int,
+
     @SerialName("place_rank")
     val placeRank: Int,
+
     @SerialName("type")
     val type: String
 )

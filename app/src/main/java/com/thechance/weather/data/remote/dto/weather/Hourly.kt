@@ -6,13 +6,15 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Hourly(
-    @SerialName("temperature_2m")
-    val temperature2m: List<Double>,
     @SerialName("time")
     val time: List<String>,
+
+    @SerialName("temperature_2m")
+    val temperatures: List<Double>,
+
     @SerialName("weather_code")
-    val weatherCode: List<Int>,
+    val weatherCodes: List<Int>,
+
     @SerialName("is_day")
     val isDay: List<Int>
-
 )
