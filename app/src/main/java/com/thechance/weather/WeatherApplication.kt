@@ -1,9 +1,11 @@
 package com.thechance.weather
 
 import android.app.Application
-import com.thechance.weather.di.dataModule
-import com.thechance.weather.di.domainModule
-import com.thechance.weather.di.presentationModule
+import com.thechance.weather.di.appModule
+import com.thechance.weather.di.dataSourceModule
+import com.thechance.weather.di.repositoryModule
+import com.thechance.weather.di.useCaseModule
+import com.thechance.weather.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -15,7 +17,13 @@ class WeatherApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@WeatherApplication)
-            modules(dataModule, domainModule, presentationModule)
+            modules(
+                appModule,
+                dataSourceModule,
+                repositoryModule,
+                useCaseModule,
+                viewModelModule
+            )
         }
     }
 }
