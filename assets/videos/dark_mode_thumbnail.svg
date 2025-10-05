@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <style> .bg { fill: #0a0f18 } .title { font: 28px sans-serif; fill: #ffffff } .hint { font: 20px sans-serif; fill: #cbd6e6 }</style>
+  </defs>
+  <rect width="1280" height="720" class="bg"/>
+  <rect x="40" y="40" width="1200" height="640" rx="20" fill="#071026" stroke="#1a2430"/>
+  <text x="640" y="120" font-size="28" text-anchor="middle" class="title">Dark mode demo video placeholder</text>
+  <text x="640" y="160" font-size="18" text-anchor="middle" class="hint">Replace with actual MP4/GIF: `/assets/videos/demo_dark.mp4`</text>
+  <polygon points="560,320 560,400 640,360" fill="#ffffff" opacity="0.95"/>
+  <text x="640" y="580" font-size="18" text-anchor="middle" class="hint">Video: show header expand/collapse, hourly scroll</text>
+</svg>

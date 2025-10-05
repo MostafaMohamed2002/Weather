@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <style> .bg { fill: #ffffff } .title { font: 28px sans-serif; fill: #111111 } .hint { font: 20px sans-serif; fill: #333333 }</style>
+  </defs>
+  <rect width="1280" height="720" class="bg"/>
+  <rect x="40" y="40" width="1200" height="640" rx="20" fill="#f8fafc" stroke="#e6e9ee"/>
+  <text x="640" y="120" font-size="28" text-anchor="middle" class="title">Light mode demo video placeholder</text>
+  <text x="640" y="160" font-size="18" text-anchor="middle" class="hint">Replace with actual MP4/GIF: `/assets/videos/demo_light.mp4`</text>
+  <polygon points="560,320 560,400 640,360" fill="#111111" opacity="0.9"/>
+  <text x="640" y="580" font-size="18" text-anchor="middle" class="hint">Video length: short demo of UI interactions</text>
+</svg>

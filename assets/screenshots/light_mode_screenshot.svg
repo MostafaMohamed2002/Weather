@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="2340" viewBox="0 0 1080 2340">
+  <defs>
+    <style> .bg { fill: #ffffff } .frame { fill: none; stroke: #cfcfcf; stroke-width: 8 } .title { font: 48px sans-serif; fill: #111111 } .meta { font: 28px sans-serif; fill: #333333 }</style>
+  </defs>
+  <rect width="1080" height="2340" class="bg" rx="48"/>
+  <rect x="40" y="120" width="1000" height="2100" rx="36" class="frame"/>
+  <text x="540" y="420" font-size="40" text-anchor="middle" class="title">Light mode screenshot placeholder</text>
+  <text x="540" y="480" font-size="22" text-anchor="middle" class="meta">Replace this SVG with a real PNG/WEBP export from your device or emulator</text>
+  <rect x="160" y="620" width="760" height="1100" rx="20" fill="#f5f7fa" stroke="#e0e0e0"/>
+  <text x="540" y="1280" font-size="28" text-anchor="middle" class="meta">Current weather UI preview</text>
+</svg>
